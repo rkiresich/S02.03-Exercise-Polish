@@ -22,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.android.sunshine.data.SunshinePreferences;
@@ -29,6 +30,7 @@ import com.example.android.sunshine.utilities.NetworkUtils;
 import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
 
 import java.net.URL;
+import java.util.concurrent.CompletionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     TextView mErrorMessageDisplay;
 
     // TODO (16) Add a ProgressBar variable to show and hide the progress bar
+    //COMPLETE
+    ProgressBar mLoadingIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mErrorMessageDisplay = (TextView) findViewById(R.id.error_message);
 
         // TODO (17) Find the ProgressBar using findViewById
+        //COMPLETE
+        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_weather_data);
 
         /* Once all of our views are setup, we can load the weather data. */
         loadWeatherData();
@@ -88,6 +94,13 @@ public class MainActivity extends AppCompatActivity {
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
         // TODO (18) Within your AsyncTask, override the method onPreExecute and show the loading indicator
+        //COMPLETE
+
+        @Override
+        protected void onPreExecute() {
+            mLoadingIndicator.setVisibility(View.VISIBLE);
+            super.onPreExecute();
+        }
 
         @Override
         protected String[] doInBackground(String... params) {
@@ -118,9 +131,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String[] weatherData) {
             // TODO (19) As soon as the data is finished loading, hide the loading indicator
+            //COMPLETE
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
 
             if (weatherData != null) {
                 // TODO (11) If the weather data was not null, make sure the data view is visible
+                //COMPLETE
+                showWeatherDataView();
                 /*
                  * Iterate through the array and append the Strings to the TextView. The reason why we add
                  * the "\n\n\n" after the String is to give visual separation between each String in the
@@ -129,8 +146,11 @@ public class MainActivity extends AppCompatActivity {
                 for (String weatherString : weatherData) {
                     mWeatherTextView.append((weatherString) + "\n\n\n");
                 }
+            }else {
+                // TODO (10) If the weather data was null, show the error message
+                //COMPLETE
+                showErrorMessage();
             }
-            // TODO (10) If the weather data was null, show the error message
 
         }
     }

@@ -48,8 +48,19 @@
         />
 
     <!--TODO (12) Add a ProgressBar to show the user content is loading-->
+    <!--COMPLETE-->
     <!--TODO (13) Make the width and height of the ProgressBar 42dp-->
+    <!--COMPLETE-->
     <!--TODO (14) Set the layout_gravity of the ProgressBar to center-->
+    <!--COMPLETE-->
     <!--TODO (15) Set the default visibility of the ProgressBar to invisible-->
+    <!--COMPLETE-->
+
+    <ProgressBar
+        android:id="@+id/pb_weather_data"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:visibility="invisible"/>
 
 </FrameLayout>
